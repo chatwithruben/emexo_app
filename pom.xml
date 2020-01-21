@@ -31,7 +31,7 @@
     <profile>
         <id>otherOutputDir</id>
         <build>
-            <directory>yourDirectory</directory>
+            <directory>/home/centos/emexo_app/target/</directory>
         </build>
     </profile>
 </profiles>
