@@ -5,7 +5,7 @@ pipeline {
       // Install the Maven version configured as "M3" and add it to the path.
         jdk "java8"
         maven "maven"
-        sonar "sonar"
+       
    }
 
    stages {
@@ -23,9 +23,12 @@ pipeline {
        }   
        stage('code analysis'){
            steps {
-            withSonarQubeEnv(credentialsId: 'sonar') {
-            sh "mvn sonar:sonar"
-            }
+           
+            sh "mvn sonar:sonar \
+                            -Dsonar.projectKey=emexo_app \
+                             -Dsonar.host.url=http://ip172-18-0-64-bojk6qb8akr000cglka0-9000.direct.labs.play-with-docker.com \
+                               -Dsonar.login=18d4f23086b95819e22ab897f6fe87c491c500bf"
+            
            }  
          }
          
