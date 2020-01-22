@@ -25,14 +25,17 @@ pipeline {
        }   
        stage('code analysis'){
            steps {
-           def  sonar = "tool name: 'sonar', type: 'hudson.plugins.sonar.SonarRunnerInstallation'"
+               withSonarQubeEnv(credentialsId: 'sonar') {
+                               sh "mvn sonar:sonar
+                           }     
+              
             sh "mvn sonar:sonar \
-  -Dsonar.projectKey=emexo_app \
-  -Dsonar.host.url=http://ip172-18-0-50-bok9d6g33cq000cbtnl0-9000.direct.labs.play-with-docker.com \
-  -Dsonar.login=51aca0fef4831ca913c849a728b4cd7362f10067" 
+                       -Dsonar.projectKey=emexo_app \
+                       -Dsonar.host.url=http://ip172-18-0-50-bok9d6g33cq000cbtnl0-9000.direct.labs.play-with-docker.com \
+                         -Dsonar.login=51aca0fef4831ca913c849a728b4cd7362f10067" 
                                
                        }  
-             }
+             }    
       stage('docker build'){
          steps{
             def docker = "tool name: 'docker', type: 'org.jenkinsci.plugins.docker.commons.tools.DockerTool'"
